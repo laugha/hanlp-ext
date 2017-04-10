@@ -1,0 +1,59 @@
+buildscript {
+    repositories {
+        maven { url 'http://dn6:8078' }
+        mavenCentral()
+        jcenter()
+    }
+}
+
+task wrapper(type: Wrapper) {
+    description = 'Generates gradlew[.bat] scripts'
+    gradleVersion = '3.2.1'
+}
+
+allprojects {
+    repositories {
+        maven { url 'http://dn6:8078' }
+        mavenCentral()
+        jcenter()
+    }
+}
+
+def ccCommonBuildScript = file("$rootDir/gradle/common.gradle")
+def ccLibs = fileTree(dir: "$rootDir/lib", include: '*.jar')
+
+project(':common') {
+    apply from: ccCommonBuildScript
+
+    description = 'common'
+
+    dependencies {
+        compile ccLibs
+        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+    }
+}
+
+project(':hanlp-io') {
+    apply from: ccCommonBuildScript
+
+    description = 'hanlp-io'
+
+    dependencies {
+        compile project(':common')
+
+        compile("org.apache.hadoop:hadoop-client:2.7.3")
+    }
+}
+
+project(':es-plugin') {
+    apply from: ccCommonBuildScript
+
+    description = 'es-plugin'
+
+    dependencies {
+        compile project(':common')
+
+        compile("org.elasticsearch:elasticsearch:5.2.2")
+    }
+}
+

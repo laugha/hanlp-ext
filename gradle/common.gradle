@@ -1,0 +1,21 @@
+apply plugin: 'java'
+
+group = 'com.hanglongdata'
+version = '1.0.0'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << "-Xlint:deprecation" << "-Xlint:unchecked" << "-Xlint:-options" << "-Xlint:unchecked"
+    dependsOn(processResources)
+}
+
+jar {
+    manifest.attributes provider: 'gradle'
+}
+
+dependencies {
+    testCompile('junit:junit:4.12')
+}
