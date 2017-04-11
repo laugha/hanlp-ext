@@ -54,6 +54,9 @@ project(':es-plugin') {
         compile project(':common')
 
         compile("org.elasticsearch:elasticsearch:5.2.2")
+        compile ("com.hankcs.nlp:hanlp-lucene-plugin:1.1.2")
+        compile group: 'org.elasticsearch.test', name: 'framework', version: '5.2.2'
+        compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.8'
     }
 }
 
