@@ -29,3 +29,14 @@ HanLP 扩展
     >-Djava.security.policy=file:///你的ES目录/plugins/elasticsearch-analysis-hanlp/plugin-security.policy
 1. 最后修改ES/bin/elasticsearch.in.sh文件将 ES_CLASSPATH修改为
     >ES_CLASSPATH="$ES_HOME/lib/elasticsearch-5.2.2.jar:$ES_HOME/lib/*:$ES_HOME/plugins/elasticsearch-analysis-hanlp/hanlp/config"
+   
+最后运行elasticsearch即可
+
+测试方法：
+```$xslt
+    GET /_analyze?pretty
+    {
+      "analyzer" : "hanlp",
+      "text" : ["重庆华龙网海数科技有限公司"]
+    }
+```
