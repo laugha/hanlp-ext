@@ -1,14 +1,12 @@
 buildscript {
+    ext {
+        versionElasticsearch = "5.2.2"
+    }
     repositories {
         maven { url 'http://dn6:8078' }
         mavenCentral()
         jcenter()
     }
-}
-
-task wrapper(type: Wrapper) {
-    description = 'Generates gradlew[.bat] scripts'
-    gradleVersion = '3.2.1'
 }
 
 allprojects {
@@ -17,10 +15,12 @@ allprojects {
         mavenCentral()
         jcenter()
     }
+
+    // no unit tests
 }
 
 def ccCommonBuildScript = file("$rootDir/gradle/common.gradle")
-def ccLibs = fileTree(dir: "$rootDir/lib", include: '*.jar')
+def ccLibs = fileTree(dir: "$rootDir/lib", include: '*.jar', excludes: ["*-sources.jar", "*-src.jar"])
 
 project(':common') {
     apply from: ccCommonBuildScript
@@ -50,10 +50,42 @@ project(':es-plugin') {
 
     description = 'es-plugin'
 
+    version = versionElasticsearch
+
+    configurations {
+        includeJars
+    }
+
     dependencies {
         compile project(':common')
 
-        compile("org.elasticsearch:elasticsearch:5.2.2")
+        compile("com.hankcs.nlp:hanlp-lucene-plugin:1.1.2") {
+            exclude group: "com.hankcs", module: "hanlp"
+        }
+//        compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.8'
+        compile("org.elasticsearch:elasticsearch:$versionElasticsearch")
+        testCompile("org.elasticsearch.test:framework:$versionElasticsearch")
+
+        includeJars(ccLibs)
+        includeJars("com.hankcs.nlp:hanlp-lucene-plugin:1.1.2") {
+            exclude group: "com.hankcs", module: "hanlp"
+            exclude group: "org.apache.lucene"
+        }
+        includeJars(project(':common'))
+    }
+
+    test.enabled = false
+
+    task buildPluginZip(type: Zip) {
+        baseName = 'elasticsearch-analysis-hanlp'
+        from files(libsDir)
+        from 'src/main/universal'
+        from configurations.includeJars.collect { it }
+        into 'elasticsearch'
+    }
+
+    artifacts {
+        archives buildPluginZip
     }
 }
 
