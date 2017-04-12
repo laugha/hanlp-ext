@@ -4,7 +4,6 @@ import com.hankcs.hanlp.corpus.io.IIOAdapter;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,26 +14,19 @@ import java.net.URI;
  * HanLP HDFSIOAdapter
  */
 public class HDFSIOAdapter implements IIOAdapter {
+    private Configuration conf = new Configuration();
+
     @Override
     public InputStream open(String path) throws IOException {
-
-        Configuration conf = new Configuration();
         FileSystem fs = FileSystem.get(URI.create(path), conf);
-        InputStream in = null;
-
-        try {
-            in = fs.open(new Path(path));
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        return in;
+        return fs.open(new Path(path));
     }
 
     @Override
     public OutputStream create(String path) throws IOException {
-        return null;
+        FileSystem fs = FileSystem.get(URI.create(path), conf);
+        return fs.create(new Path(path));
     }
+
 
 }
