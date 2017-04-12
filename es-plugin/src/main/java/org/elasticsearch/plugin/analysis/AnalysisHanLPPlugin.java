@@ -9,12 +9,23 @@ import org.elasticsearch.indices.analysis.AnalysisModule;
 import org.elasticsearch.plugins.AnalysisPlugin;
 import org.elasticsearch.plugins.Plugin;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Properties;
 
 public class AnalysisHanLPPlugin extends Plugin implements AnalysisPlugin {
-
-    public static String PLUGIN_NAME = "analysis-hanlp";
+    static {
+//        System.out.println(System.getProperties().get("java.class.path"));
+        Properties p = new Properties();
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        try {
+            p.load(loader.getResourceAsStream("hanlp.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        p.list(System.out);
+    }
 
     @Override
     public Map<String, AnalysisModule.AnalysisProvider<TokenizerFactory>> getTokenizers() {

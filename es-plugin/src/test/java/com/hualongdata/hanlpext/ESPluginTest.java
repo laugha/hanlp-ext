@@ -15,16 +15,11 @@ import java.io.IOException;
  */
 public class ESPluginTest extends ESTestCase {
 
-
     @Test
     public void hanlpTest() throws IOException{
-
         TestAnalysis analysis = createTestAnalysis(new Index("test", "_na_"), Settings.EMPTY, new AnalysisHanLPPlugin());
         TokenizerFactory tokenizerFactory = analysis.tokenizer.get("hanlp");
         HanLPTokenizer tokenizer = (HanLPTokenizer) tokenizerFactory.create();
-
-
     }
-
 
 }

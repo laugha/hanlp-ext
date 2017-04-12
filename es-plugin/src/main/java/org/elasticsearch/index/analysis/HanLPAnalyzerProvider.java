@@ -13,7 +13,6 @@ public class HanLPAnalyzerProvider extends AbstractIndexAnalyzerProvider<Analyze
     public HanLPAnalyzerProvider(IndexSettings indexSettings, Environment env, String name, Settings settings) {
         super(indexSettings, name, settings);
         analyzer = new HanLPAnalyzer();
-
     }
 
     @Override

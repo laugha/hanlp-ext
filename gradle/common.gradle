@@ -1,7 +1,7 @@
 apply plugin: 'java'
 
 group = 'com.hanglongdata'
-version = '1.0.0'
+version = "0.0.1"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -19,3 +19,5 @@ jar {
 dependencies {
     testCompile('junit:junit:4.12')
 }
+
+test.enabled = false
