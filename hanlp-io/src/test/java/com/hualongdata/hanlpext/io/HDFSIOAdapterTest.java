@@ -1,8 +1,12 @@
 package com.hualongdata.hanlpext.io;
 
+import com.hankcs.hanlp.HanLP;
+import com.hankcs.hanlp.seg.common.Term;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -20,6 +24,10 @@ public class HDFSIOAdapterTest {
 
     @Test
     public void open() throws Exception {
+
+        String test = "姚明当选中国篮协主席。";
+        List<Term> termList = HanLP.segment(test);
+        System.out.println(termList);
     }
 
     @Test
