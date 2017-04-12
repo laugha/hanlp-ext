@@ -25,7 +25,7 @@ public class HDFSIOAdapterTest {
     @Test
     public void open() throws Exception {
 
-        String test = "姚明当选中国篮协主席。";
+        String test = "今天是皇家马德里的欧冠比赛。";
         List<Term> termList = HanLP.segment(test);
         System.out.println(termList);
     }
