@@ -19,7 +19,6 @@ public class HDFSIOAdapter implements IIOAdapter {
     public InputStream open(String path) throws IOException {
 
         Configuration conf = new Configuration();
-        conf.set("fs.defaultFS", "hdfs://dn111:9000");
         FileSystem fs = FileSystem.get(URI.create(path), conf);
         InputStream in = null;
 
