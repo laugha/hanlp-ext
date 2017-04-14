@@ -1,4 +1,4 @@
-# es-plugin相关配置说明
+# elasticsearch-hanlp
 
 文件路径按着自己的安装路径设置
 

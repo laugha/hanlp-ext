@@ -3,7 +3,7 @@ buildscript {
         versionElasticsearch = "5.2.2"
     }
     repositories {
-        maven { url 'http://dn6:8078' }
+        maven { url 'http://repox.gtan.com:8078' }
         mavenCentral()
         jcenter()
     }
@@ -11,7 +11,7 @@ buildscript {
 
 allprojects {
     repositories {
-        maven { url 'http://dn6:8078' }
+        maven { url 'http://repox.gtan.com:8078' }
         mavenCentral()
         jcenter()
     }
@@ -61,8 +61,8 @@ project(':es-plugin') {
 
         compile("com.hankcs.nlp:hanlp-lucene-plugin:1.1.2") {
             exclude group: "com.hankcs", module: "hanlp"
+            exclude group: "org.apache.lucene"
         }
-//        compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.8'
         compile("org.elasticsearch:elasticsearch:$versionElasticsearch")
         testCompile("org.elasticsearch.test:framework:$versionElasticsearch")
 
