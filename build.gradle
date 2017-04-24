@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        versionElasticsearch = "5.2.2"
+        versionElasticsearch = "5.3.1"
     }
     repositories {
         maven { url 'http://repox.gtan.com:8078' }
@@ -77,7 +77,7 @@ project(':es-plugin') {
     test.enabled = false
 
     task buildPluginZip(type: Zip) {
-        baseName = 'elasticsearch-analysis-hanlp'
+        baseName = 'elasticsearch-hanlp'
         from files(libsDir)
         from 'src/main/universal'
         from configurations.includeJars.collect { it }
